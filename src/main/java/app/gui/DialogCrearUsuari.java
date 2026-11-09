@@ -4,6 +4,11 @@
  */
 package app.gui;
 
+import app.dto.User;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  *
  * @author Alumne
@@ -40,9 +45,9 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
         jTextFieldLlinatge2 = new javax.swing.JTextField();
         jTextFieldDNI = new javax.swing.JTextField();
         jTextFieldTelefon = new javax.swing.JTextField();
-        jSpinnerDataRegistre = new javax.swing.JSpinner();
         jButtonConfirmarAddUser = new javax.swing.JButton();
         jButtonCancelarAddUser = new javax.swing.JButton();
+        jTextFieldDataRegistre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -62,6 +67,7 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
 
         jButtonConfirmarAddUser.setBackground(new java.awt.Color(0, 153, 51));
         jButtonConfirmarAddUser.setText("Confirmar");
+        jButtonConfirmarAddUser.addActionListener(this::jButtonConfirmarAddUserActionPerformed);
 
         jButtonCancelarAddUser.setBackground(new java.awt.Color(204, 0, 0));
         jButtonCancelarAddUser.setText("Cancel·lar");
@@ -89,7 +95,7 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
                             .addComponent(jTextFieldLlinatge2)
                             .addComponent(jTextFieldDNI)
                             .addComponent(jTextFieldTelefon, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
-                            .addComponent(jSpinnerDataRegistre)))
+                            .addComponent(jTextFieldDataRegistre)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(216, 216, 216)
                         .addComponent(jButtonConfirmarAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -120,11 +126,11 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTelefon)
                     .addComponent(jTextFieldTelefon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelDataRegistre)
-                    .addComponent(jSpinnerDataRegistre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                    .addComponent(jTextFieldDataRegistre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonConfirmarAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCancelarAddUser, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -136,12 +142,43 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
 
     private void jTextFieldNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextFieldNomActionPerformed
 
     private void jButtonCancelarAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarAddUserActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarAddUserActionPerformed
+
+    private void jButtonConfirmarAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarAddUserActionPerformed
+        // TODO add your handling code here:
+        String nom = jTextFieldNom.getText(); 
+        String llinatge1 = jTextFieldLlinatge1.getText();
+        String llinatge2 = jTextFieldLlinatge2.getText(); 
+        String dni = jTextFieldDNI.getText();
+        String telefon = jTextFieldTelefon.getText(); 
+        Date dataRegistre = new Date(); 
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+        String dataAText = formato.format(dataRegistre); 
+        jTextFieldDataRegistre.setText(dataAText);
+                
+                
+       if (nom.isEmpty() || llinatge1.isEmpty() || llinatge2.isEmpty() || dni.isEmpty() || telefon.isEmpty()){
+           javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE); 
+       } else {
+           
+           String LlinatgeComplet = llinatge1 + llinatge2; 
+           
+           User usuari = new User(nom, LlinatgeComplet); 
+           
+            javax.swing.JOptionPane.showMessageDialog(this, "¡Usuario registrado con éxito!");
+            jTextFieldNom.setText("");
+            jTextFieldLlinatge1.setText("");
+            jTextFieldLlinatge2.setText("");
+            jTextFieldDNI.setText("");
+            jTextFieldTelefon.setText("");
+       }
+    }//GEN-LAST:event_jButtonConfirmarAddUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,8 +226,8 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelLlinatge2;
     private javax.swing.JLabel jLabelNom;
     private javax.swing.JLabel jLabelTelefon;
-    private javax.swing.JSpinner jSpinnerDataRegistre;
     private javax.swing.JTextField jTextFieldDNI;
+    private javax.swing.JTextField jTextFieldDataRegistre;
     private javax.swing.JTextField jTextFieldLlinatge1;
     private javax.swing.JTextField jTextFieldLlinatge2;
     private javax.swing.JTextField jTextFieldNom;
