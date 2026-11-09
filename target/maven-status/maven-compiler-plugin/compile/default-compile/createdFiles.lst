@@ -15,6 +15,7 @@ app\gui\DialogCrearUsuari$1$1.class
 app\gui\DialogCrearUsuari$1.class
 app\gui\DialogRegistraLloguer$1$1.class
 app\gui\DialogRegistraLloguer.class
+app\dto\Joc$1.class
 app\gui\DialogTornaLloguer.class
 app\gui\DialogRegistraLloguer$1.class
 app\dto\GestorLloguer.class

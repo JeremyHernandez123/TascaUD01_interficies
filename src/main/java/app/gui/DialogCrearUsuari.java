@@ -186,6 +186,7 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
         jTextFieldLlinatge2.setText("");
         jTextFieldDNI.setText("");
         jTextFieldTelefon.setText("");
+        this.dispose(); 
     }//GEN-LAST:event_jButtonConfirmarAddUserActionPerformed
 
     private void jTextFieldDataRegistreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataRegistreActionPerformed

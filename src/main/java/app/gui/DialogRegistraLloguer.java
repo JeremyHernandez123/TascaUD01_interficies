@@ -391,6 +391,7 @@ public class DialogRegistraLloguer extends javax.swing.JDialog {
 
         jButtonConfirmarCrearJoc.setBackground(new java.awt.Color(0, 153, 0));
         jButtonConfirmarCrearJoc.setText("Confirmar");
+        jButtonConfirmarCrearJoc.addActionListener(this::jButtonConfirmarCrearJocActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -453,6 +454,34 @@ public class DialogRegistraLloguer extends javax.swing.JDialog {
     private void jComboBoxUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxUsuariActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxUsuariActionPerformed
+
+    private void jButtonConfirmarCrearJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarCrearJocActionPerformed
+        // TODO add your handling code here:
+        int indexUsuari = jComboBoxUsuari.getSelectedIndex();
+        int indexJoc = jComboBoxJocElegit.getSelectedIndex();
+
+        if (indexUsuari < 0 || indexJoc < 0) {
+            JOptionPane.showMessageDialog(this, "Has de seleccionar un usuari i un joc.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Plataforma plataforma = getPlataformaSeleccionada();
+        if (plataforma == null) {
+            JOptionPane.showMessageDialog(this, "Has de seleccionar una plataforma.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        User usuari = gLloguer.getUsuaris().get(indexUsuari);
+        Joc joc = gLloguer.getJocs().get(indexJoc);
+        if (joc.getUnitats(plataforma) <= 0) {
+            JOptionPane.showMessageDialog(this, "No queden unitats d'aquest joc en aquesta plataforma.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Date dataInici = (Date) jSpinnerDataInici.getValue();
+        gLloguer.crearLloguer(usuari, joc, plataforma, dataInici);
+        joc.setUnitats(plataforma, joc.getUnitats(plataforma) - 1);
+        JOptionPane.showMessageDialog(this, "Lloguer registrat correctament!");
+        this.dispose();
+    }//GEN-LAST:event_jButtonConfirmarCrearJocActionPerformed
 
     /**
      * @param args the command line arguments
