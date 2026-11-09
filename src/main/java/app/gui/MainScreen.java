@@ -5,8 +5,11 @@
 package app.gui;
 
 import app.dto.GestorLloguer;
+import app.dto.Lloguer;
 import app.dto.User;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,7 +27,40 @@ public class MainScreen extends javax.swing.JFrame {
     public MainScreen() {
         initComponents();
         gLloguer = new GestorLloguer();
+        
+        jTextFieldTotalLloguers.setEditable(false);
 
+        jTableGestorLloguerVideojocs.setDefaultEditor(Object.class, null);
+        jTableGestorLloguerVideojocs.setDefaultEditor(Number.class, null);
+
+        refrescarTaula();
+
+    }
+    
+    private String formatarData(Date data) {
+        if (data == null) {
+            return "";
+        }
+        return new SimpleDateFormat("dd/MM/yyyy").format(data);
+    }
+
+    private void refrescarTaula() {
+        DefaultTableModel model = (DefaultTableModel) jTableGestorLloguerVideojocs.getModel();
+        model.setRowCount(0);
+
+        for (Lloguer l : gLloguer.getLloguers()) {
+            model.addRow(new Object[]{
+                l.getNumLloguer(),
+                l.getJoc().getTitol(),
+                l.getUsuari().toString(),
+                l.getPlataforma().toString(),
+                formatarData(l.getDataInici()),
+                formatarData(l.getDataTornada()),
+                l.getJoc().getGenere()
+            });
+        }
+
+        jTextFieldTotalLloguers.setText(String.valueOf(gLloguer.getLloguers().size()));
     }
         /**
      * This method is called from within the constructor to initialize the form.
@@ -144,6 +180,7 @@ public class MainScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         DialogRegistraLloguer finestrRegistraLloguerLloguer = new DialogRegistraLloguer(this, rootPaneCheckingEnabled, gLloguer); 
         finestrRegistraLloguerLloguer.setVisible(true);
+        refrescarTaula();
     }//GEN-LAST:event_jMenuItemRegistrarLloguerActionPerformed
 
     private void jTextFieldTotalLloguersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTotalLloguersActionPerformed
