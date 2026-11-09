@@ -49,4 +49,13 @@ public class Lloguer {
     public Date getDataTornada() {
         return dataTornada;
     }
+    
+    public boolean tornat(){
+        if(dataTornada!= null) {
+            return true; 
+        }
+        return false; 
+    }
+    
+    
 }
