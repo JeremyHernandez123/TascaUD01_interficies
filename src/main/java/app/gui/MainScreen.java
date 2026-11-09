@@ -29,12 +29,10 @@ public class MainScreen extends javax.swing.JFrame {
         gLloguer = new GestorLloguer();
         
         jTextFieldTotalLloguers.setEditable(false);
-
         jTableGestorLloguerVideojocs.setDefaultEditor(Object.class, null);
         jTableGestorLloguerVideojocs.setDefaultEditor(Number.class, null);
 
         refrescarTaula();
-
     }
     
     private String formatarData(Date data) {

@@ -69,4 +69,53 @@ public class GestorLloguer {
         }
         return null;
     }
+    
+     public ArrayList<Lloguer> getLloguersActius() {
+        ArrayList<Lloguer> actius = new ArrayList<>();
+        for (Lloguer l : llistaLloguer) {
+            if (l.isActiu()) {
+                actius.add(l);
+            }
+        }
+        return actius;
+    }
+
+    public boolean teLloguersActius(User usuari) {
+        for (Lloguer l : llistaLloguer) {
+            if (l.isActiu() && l.getUsuari() == usuari) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean teLloguersActius(Joc joc) {
+        for (Lloguer l : llistaLloguer) {
+            if (l.isActiu() && l.getJoc() == joc) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean eliminarUsuari(User usuari) {
+        if (teLloguersActius(usuari)) {
+            return false;
+        }
+        return llistaUser.remove(usuari);
+    }
+
+    public boolean eliminarJoc(Joc joc) {
+        if (teLloguersActius(joc)) {
+            return false;
+        }
+        return llistaJoc.remove(joc);
+    }
+
+    public void tornarLloguer(Lloguer lloguer, Date dataTornada) {
+        lloguer.marcarTornat(dataTornada);
+        Joc joc = lloguer.getJoc();
+        Plataforma p = lloguer.getPlataforma();
+        joc.setUnitats(p, joc.getUnitats(p) + 1); // la unitat torna a l'estoc
+    }
 }
