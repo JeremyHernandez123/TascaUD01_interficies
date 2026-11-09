@@ -23,6 +23,8 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
     public DialogCrearUsuari(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        jTextFieldDataRegistre.setEditable(false);
+        jTextFieldDataRegistre.setEnabled(false);
     }
 
     /**
@@ -72,6 +74,8 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
         jButtonCancelarAddUser.setBackground(new java.awt.Color(204, 0, 0));
         jButtonCancelarAddUser.setText("Cancel·lar");
         jButtonCancelarAddUser.addActionListener(this::jButtonCancelarAddUserActionPerformed);
+
+        jTextFieldDataRegistre.addActionListener(this::jTextFieldDataRegistreActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,7 +166,6 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
         String dataAText = formato.format(dataRegistre); 
         jTextFieldDataRegistre.setText(dataAText);
                 
-                
        if (nom.isEmpty() || llinatge1.isEmpty() || llinatge2.isEmpty() || dni.isEmpty() || telefon.isEmpty()){
            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE); 
        } else {
@@ -177,8 +180,13 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
             jTextFieldLlinatge2.setText("");
             jTextFieldDNI.setText("");
             jTextFieldTelefon.setText("");
+            jTextFieldDataRegistre.setText("");
        }
     }//GEN-LAST:event_jButtonConfirmarAddUserActionPerformed
+
+    private void jTextFieldDataRegistreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataRegistreActionPerformed
+
+    }//GEN-LAST:event_jTextFieldDataRegistreActionPerformed
 
     /**
      * @param args the command line arguments
