@@ -479,7 +479,7 @@ public class DialogRegistraLloguer extends javax.swing.JDialog {
         Date dataInici = (Date) jSpinnerDataInici.getValue();
         gLloguer.crearLloguer(usuari, joc, plataforma, dataInici);
         joc.setUnitats(plataforma, joc.getUnitats(plataforma) - 1);
-        JOptionPane.showMessageDialog(this, "Lloguer registrat correctament!");
+        JOptionPane.showMessageDialog(this, "Lloguer registrat correctament");
         this.dispose();
     }//GEN-LAST:event_jButtonConfirmarCrearJocActionPerformed
 

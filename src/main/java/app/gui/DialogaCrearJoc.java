@@ -6,6 +6,7 @@ package app.gui;
 
 import app.dto.GestorLloguer;
 import app.dto.Joc;
+import app.validation.ValidationAPI;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
@@ -229,8 +230,9 @@ public class DialogaCrearJoc extends javax.swing.JDialog {
         int unitatsPC = pc ? (Integer) jSpinnerUnitatsPC.getValue() : 0;
         int unitatsSwitch2 = switch2 ? (Integer) jSpinnerUnitatsSwitch2.getValue() : 0;
 
-        if (titol.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Has d'introduir el títol del joc.", "Error",JOptionPane.ERROR_MESSAGE);
+        String error = ValidationAPI.validarCampObligatori(titol, "Títol");
+        if (error != null) {
+            JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -252,7 +254,7 @@ public class DialogaCrearJoc extends javax.swing.JDialog {
 
         Joc joc = new Joc(titol, genere, unitatsPS5, unitatsXbox, unitatsPC, unitatsSwitch2);
         gLloguer.afegirJoc(joc);
-        JOptionPane.showMessageDialog(this, "Joc creat correctament!");
+        JOptionPane.showMessageDialog(this, "Joc creat correctament");
         this.dispose();
     }//GEN-LAST:event_jButtonConfirmarCreajocActionPerformed
 

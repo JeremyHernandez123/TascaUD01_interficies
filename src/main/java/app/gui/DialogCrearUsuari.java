@@ -6,6 +6,7 @@ package app.gui;
 
 import app.dto.GestorLloguer;
 import app.dto.User;
+import app.validation.ValidationAPI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -167,20 +168,34 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
         String telefon = jTextFieldTelefon.getText().trim();
         Date dataRegistre = new Date();
 
-        if (nom.isEmpty() || llinatge1.isEmpty() || llinatge2.isEmpty() || dni.isEmpty() || telefon.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        String error = ValidationAPI.validarNom(nom, "Nom");
+        if (error == null) {
+            error = ValidationAPI.validarNom(llinatge1, "Llinatge 1");
+        }
+        if (error == null) {
+            error = ValidationAPI.validarNom(llinatge2, "Llinatge 2");
+        }
+        if (error == null) {
+            error = ValidationAPI.validarCampObligatori(dni, "DNI");
+        }
+        if (error == null) {
+            error = ValidationAPI.validarTelefon(telefon);
+        }
+
+        if (error != null) {
+            javax.swing.JOptionPane.showMessageDialog(this, error, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         if (gLloguer.buscarUsuariPerDni(dni) != null) {
-            JOptionPane.showMessageDialog(this, "Ya existe un usuario con ese DNI.", "Error", JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "Ja existeix un usuari amb aquest DNI.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         User usuari = new User(nom, llinatge1, llinatge2, dni, telefon, dataRegistre);
         gLloguer.afegirUsuari(usuari);
 
-        JOptionPane.showMessageDialog(this, "¡Usuario registrado con éxito!");
+        JOptionPane.showMessageDialog(this, "Usuario registrado");
         jTextFieldNom.setText("");
         jTextFieldLlinatge1.setText("");
         jTextFieldLlinatge2.setText("");
