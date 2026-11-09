@@ -11,12 +11,12 @@ package app.dto;
 public class Joc {
     private String titol; 
     private String genere; 
-    private String unitatsPS5; 
-    private String unitatsXbox; 
-    private String unitatsPC; 
-    private String unitatsSwitch2; 
+    private int unitatsPS5; 
+    private int unitatsXbox; 
+    private int unitatsPC; 
+    private int unitatsSwitch2; 
 
-    public Joc(String titol, String genere, String unitatsPS5, String unitatsXbox, String unitatsPC, String unitatsSwitch2) {
+    public Joc(String titol, String genere, int unitatsPS5, int unitatsXbox, int unitatsPC, int unitatsSwitch2) {
         this.titol = titol;
         this.genere = genere;
         this.unitatsPS5 = unitatsPS5;
@@ -41,35 +41,35 @@ public class Joc {
         this.genere = genere;
     }
 
-    public String getUnitatsPS5() {
+    public int getUnitatsPS5() {
         return unitatsPS5;
     }
 
-    public void setUnitatsPS5(String unitatsPS5) {
+    public void setUnitatsPS5(int unitatsPS5) {
         this.unitatsPS5 = unitatsPS5;
     }
 
-    public String getUnitatsXbox() {
+    public int getUnitatsXbox() {
         return unitatsXbox;
     }
 
-    public void setUnitatsXbox(String unitatsXbox) {
+    public void setUnitatsXbox(int unitatsXbox) {
         this.unitatsXbox = unitatsXbox;
     }
 
-    public String getUnitatsPC() {
+    public int getUnitatsPC() {
         return unitatsPC;
     }
 
-    public void setUnitatsPC(String unitatsPC) {
+    public void setUnitatsPC(int unitatsPC) {
         this.unitatsPC = unitatsPC;
     }
 
-    public String getUnitatsSwitch2() {
+    public int getUnitatsSwitch2() {
         return unitatsSwitch2;
     }
 
-    public void setUnitatsSwitch2(String unitatsSwitch2) {
+    public void setUnitatsSwitch2(int unitatsSwitch2) {
         this.unitatsSwitch2 = unitatsSwitch2;
     }
 

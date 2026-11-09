@@ -170,7 +170,7 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE); 
        } else {
            
-           String LlinatgeComplet = llinatge1 + llinatge2; 
+           String LlinatgeComplet = llinatge1 + " " + llinatge2; 
            
            User usuari = new User(nom, LlinatgeComplet); 
             
