@@ -50,12 +50,14 @@ public class Lloguer {
         return dataTornada;
     }
     
-    public boolean tornat(){
-        if(dataTornada!= null) {
-            return true; 
-        }
-        return false; 
+    public boolean isActiu(){
+        return dataTornada == null;  
     }
     
-    
+    public void marcarTornat(Date dataTornada){
+        if(!isActiu()){
+           throw new IllegalStateException("Aquest lloguer ha estat retornat"); 
+        }
+        this.dataTornada = dataTornada; 
+    }  
 }
