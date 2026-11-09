@@ -190,9 +190,9 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jMenuItemTornarLloguerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemTornarLloguerActionPerformed
         // TODO add your handling code here:
-        DialogTornaLloguer finestraTornaLloguer = new DialogTornaLloguer(this, rootPaneCheckingEnabled); 
+        DialogTornaLloguer finestraTornaLloguer = new DialogTornaLloguer(this, rootPaneCheckingEnabled, gLloguer); 
         finestraTornaLloguer.setVisible(true);
-        
+        refrescarTaula(); 
     }//GEN-LAST:event_jMenuItemTornarLloguerActionPerformed
 
     private void jMenuItemCrearUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCrearUsuariActionPerformed

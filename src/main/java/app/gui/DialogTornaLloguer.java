@@ -4,6 +4,15 @@
  */
 package app.gui;
 
+import app.dto.GestorLloguer;
+import app.dto.Lloguer;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Alumne
@@ -11,15 +20,76 @@ package app.gui;
 public class DialogTornaLloguer extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DialogTornaLloguer.class.getName());
-
+    
+    private GestorLloguer gLloguer;
+    private ArrayList<Lloguer> llistaActius = new ArrayList<>();
     /**
      * Creates new form DialogTornaLloguer
      */
-    public DialogTornaLloguer(java.awt.Frame parent, boolean modal) {
+    public DialogTornaLloguer(java.awt.Frame parent, boolean modal, GestorLloguer gLloguer) {
         super(parent, modal);
+        this.gLloguer = gLloguer;
         initComponents();
+        
+        jTextFieldTornaLloguerJoc1.setEditable(false);
+        jTextFieldTornaLloguerUsuari1.setEditable(false);
+        jTextFieldTornaLloguerPlataforma.setEditable(false);
+        jTextFieldTornaLloguerDataInici.setEditable(false);
+        jTextFieldTornaLloguerJoc1.setEnabled(false);
+        jTextFieldTornaLloguerUsuari1.setEnabled(false);
+        jTextFieldTornaLloguerPlataforma.setEnabled(false);
+        jTextFieldTornaLloguerDataInici.setEnabled(false);
+
+        jTable1.setDefaultEditor(Object.class, null);
+        jTable1.setDefaultEditor(Number.class, null);
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jTable1.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                mostrarDetall();
+            }
+        });
+
+        refrescarTaula();
+    }
+    
+    private void refrescarTaula() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+
+        llistaActius = gLloguer.getLloguersActius();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        for (Lloguer l : llistaActius) {
+            model.addRow(new Object[]{
+                l.getNumLloguer(),
+                l.getJoc().getTitol(),
+                l.getUsuari().toString(),
+                l.getPlataforma().toString(),
+                format.format(l.getDataInici())
+            });
+        }
+        netejarDetall();
     }
 
+    private void mostrarDetall() {
+        int fila = jTable1.getSelectedRow();
+        if (fila < 0 || fila >= llistaActius.size()) {
+            netejarDetall();
+            return;
+        }
+        Lloguer l = llistaActius.get(fila);
+        jTextFieldTornaLloguerJoc1.setText(l.getJoc().getTitol());
+        jTextFieldTornaLloguerUsuari1.setText(l.getUsuari().toString());
+        jTextFieldTornaLloguerPlataforma.setText(l.getPlataforma().toString());
+        jTextFieldTornaLloguerDataInici.setText(new SimpleDateFormat("dd/MM/yyyy").format(l.getDataInici()));
+    }
+
+    private void netejarDetall() {
+        jTextFieldTornaLloguerJoc1.setText("");
+        jTextFieldTornaLloguerUsuari1.setText("");
+        jTextFieldTornaLloguerPlataforma.setText("");
+        jTextFieldTornaLloguerDataInici.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,6 +148,7 @@ public class DialogTornaLloguer extends javax.swing.JDialog {
 
         jButton1.setBackground(new java.awt.Color(0, 204, 0));
         jButton1.setText("Marcar com a retornat");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jButton2.setBackground(new java.awt.Color(102, 102, 102));
         jButton2.setText("Tancar");
@@ -167,6 +238,21 @@ public class DialogTornaLloguer extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int fila = jTable1.getSelectedRow();
+        if (fila < 0) {
+            JOptionPane.showMessageDialog(this, "Has de seleccionar un lloguer.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Lloguer lloguer = llistaActius.get(fila);
+        gLloguer.tornarLloguer(lloguer, new Date());
+
+        JOptionPane.showMessageDialog(this, "Lloguer marcat com retornat.");
+        refrescarTaula();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -192,7 +278,7 @@ public class DialogTornaLloguer extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DialogTornaLloguer dialog = new DialogTornaLloguer(new javax.swing.JFrame(), true);
+                DialogTornaLloguer dialog = new DialogTornaLloguer(new javax.swing.JFrame(), true, new GestorLloguer());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
