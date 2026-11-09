@@ -41,8 +41,5 @@ public class User {
     public String toString() {
         return nom;
     }
- 
-    
-    
     
 }
