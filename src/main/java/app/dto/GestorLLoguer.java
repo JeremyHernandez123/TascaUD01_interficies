@@ -47,4 +47,13 @@ public class GestorLloguer {
     public static ArrayList<Lloguer> getLloguers(){
         return llistaLloguer; 
     }
+    
+    public static User buscarUsuariPerDni(String dni){
+        for (User u : llistaUser) {
+        if (u.getDni().equals(dni)) {
+            return u;
+        }
+    }
+    return null;
+    }
 }

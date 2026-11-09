@@ -159,31 +159,32 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
 
     private void jButtonConfirmarAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarAddUserActionPerformed
         // TODO add your handling code here:
-        String nom = jTextFieldNom.getText(); 
-        String llinatge1 = jTextFieldLlinatge1.getText();
-        String llinatge2 = jTextFieldLlinatge2.getText(); 
-        String dni = jTextFieldDNI.getText();
-        String telefon = jTextFieldTelefon.getText(); 
-        Date dataRegistre = new Date(); 
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
-        String dataAText = formato.format(dataRegistre); 
-        jTextFieldDataRegistre.setText(dataAText);
-                
-       if (nom.isEmpty() || llinatge1.isEmpty() || llinatge2.isEmpty() || dni.isEmpty() || telefon.isEmpty()){
-           javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE); 
-       } else {
-                      
-           User usuari = new User(nom, llinatge1, llinatge2, dni, telefon, dataRegistre); 
-            
-            GestorLloguer.afegirUsuari(usuari);  
-            javax.swing.JOptionPane.showMessageDialog(this, "¡Usuario registrado con éxito!");
-            jTextFieldNom.setText("");
-            jTextFieldLlinatge1.setText("");
-            jTextFieldLlinatge2.setText("");
-            jTextFieldDNI.setText("");
-            jTextFieldTelefon.setText("");
-            jTextFieldDataRegistre.setText("");
-       }
+        String nom = jTextFieldNom.getText().trim();
+        String llinatge1 = jTextFieldLlinatge1.getText().trim();
+        String llinatge2 = jTextFieldLlinatge2.getText().trim();
+        String dni = jTextFieldDNI.getText().trim();
+        String telefon = jTextFieldTelefon.getText().trim();
+        Date dataRegistre = new Date();
+
+        if (nom.isEmpty() || llinatge1.isEmpty() || llinatge2.isEmpty() || dni.isEmpty() || telefon.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (gLloguer.buscarUsuariPerDni(dni) != null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Ya existe un usuario con ese DNI.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        User usuari = new User(nom, llinatge1, llinatge2, dni, telefon, dataRegistre);
+        gLloguer.afegirUsuari(usuari);
+
+        javax.swing.JOptionPane.showMessageDialog(this, "¡Usuario registrado con éxito!");
+        jTextFieldNom.setText("");
+        jTextFieldLlinatge1.setText("");
+        jTextFieldLlinatge2.setText("");
+        jTextFieldDNI.setText("");
+        jTextFieldTelefon.setText("");
     }//GEN-LAST:event_jButtonConfirmarAddUserActionPerformed
 
     private void jTextFieldDataRegistreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDataRegistreActionPerformed
