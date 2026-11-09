@@ -5,11 +5,13 @@
 package app.gui;
 
 import app.dto.GestorLloguer;
+import app.dto.Joc;
 import app.dto.Lloguer;
 import app.dto.User;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -142,6 +144,7 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuJoc.add(jMenuItemCrearJoc);
 
         jMenuItemBorrarJoc.setText("Borrar...");
+        jMenuItemBorrarJoc.addActionListener(this::jMenuItemBorrarJocActionPerformed);
         jMenuJoc.add(jMenuItemBorrarJoc);
 
         jMenuBar.add(jMenuJoc);
@@ -206,8 +209,54 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jMenuItemBorrarUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarUsuariActionPerformed
         // TODO add your handling code here:
-        
+        if (gLloguer.getUsuaris().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hi ha cap usuari per borrar.");
+            return;
+        }
+        User seleccionat = (User) JOptionPane.showInputDialog(this, "Selecciona l'usuari a esborrar:", "Esborrar usuari",
+                JOptionPane.QUESTION_MESSAGE, null,
+                gLloguer.getUsuaris().toArray(), null);
+        if (seleccionat == null) {
+            return;
+        }
+        int resposta = JOptionPane.showConfirmDialog(this,
+                "Vols borrar " + seleccionat + "?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (resposta != JOptionPane.YES_OPTION) {
+            return;
+        }
+        if (gLloguer.eliminarUsuari(seleccionat)) {
+            JOptionPane.showMessageDialog(this, "Usuari borrat correctament.");
+        } else {
+            JOptionPane.showMessageDialog(this, "No es pot borrat: l'usuari té lloguers actius.","Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMenuItemBorrarUsuariActionPerformed
+
+    private void jMenuItemBorrarJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarJocActionPerformed
+        // TODO add your handling code here:
+        if (gLloguer.getJocs().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hi ha cap joc per borrar.");
+            return;
+        }
+        Joc seleccionat = (Joc) JOptionPane.showInputDialog(this, "Selecciona el joc a borrar:", "borrar joc",
+                JOptionPane.QUESTION_MESSAGE, null,
+                gLloguer.getJocs().toArray(), null);
+        if (seleccionat == null) {
+            return;
+        }
+        int resposta = JOptionPane.showConfirmDialog(this, "Vols borrar " + seleccionat + "?",
+                "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (resposta != JOptionPane.YES_OPTION) {
+            return;
+        }
+        if (gLloguer.eliminarJoc(seleccionat)) {
+            JOptionPane.showMessageDialog(this, "Joc borrar correctament.");
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "No es pot borrar: el joc té lloguers actius.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jMenuItemBorrarJocActionPerformed
 
     /**
      * @param args the command line arguments
