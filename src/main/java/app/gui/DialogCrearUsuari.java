@@ -9,6 +9,7 @@ import app.dto.User;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -167,19 +168,19 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
         Date dataRegistre = new Date();
 
         if (nom.isEmpty() || llinatge1.isEmpty() || llinatge2.isEmpty() || dni.isEmpty() || telefon.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         if (gLloguer.buscarUsuariPerDni(dni) != null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Ya existe un usuario con ese DNI.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ya existe un usuario con ese DNI.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         User usuari = new User(nom, llinatge1, llinatge2, dni, telefon, dataRegistre);
         gLloguer.afegirUsuari(usuari);
 
-        javax.swing.JOptionPane.showMessageDialog(this, "¡Usuario registrado con éxito!");
+        JOptionPane.showMessageDialog(this, "¡Usuario registrado con éxito!");
         jTextFieldNom.setText("");
         jTextFieldLlinatge1.setText("");
         jTextFieldLlinatge2.setText("");

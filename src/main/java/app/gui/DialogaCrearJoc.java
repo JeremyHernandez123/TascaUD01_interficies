@@ -4,6 +4,12 @@
  */
 package app.gui;
 
+import app.dto.GestorLloguer;
+import app.dto.Joc;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
+
 /**
  *
  * @author Alumne
@@ -11,13 +17,21 @@ package app.gui;
 public class DialogaCrearJoc extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DialogaCrearJoc.class.getName());
+    private GestorLloguer gLloguer;
 
     /**
      * Creates new form DialogaCrearJoc
      */
-    public DialogaCrearJoc(java.awt.Frame parent, boolean modal) {
+    public DialogaCrearJoc(java.awt.Frame parent, boolean modal, GestorLloguer gLloguer) {
         super(parent, modal);
+        this.gLloguer = gLloguer;
         initComponents();
+        
+        jSpinnerUnitatsPS5.setModel(new SpinnerNumberModel(0, 0, 999, 1));
+        jSpinnerUnitatsXbpx.setModel(new SpinnerNumberModel(0, 0, 999, 1));
+        jSpinnerUnitatsPC.setModel(new SpinnerNumberModel(0, 0, 999, 1));
+        jSpinnerUnitatsSwitch2.setModel(new SpinnerNumberModel(0, 0, 999, 1));
+    
     }
 
     /**
@@ -139,7 +153,7 @@ public class DialogaCrearJoc extends javax.swing.JDialog {
         checkboxPS5.getAccessibleContext().setAccessibleName("");
         checkboxPS5.getAccessibleContext().setAccessibleDescription("");
 
-        jComboBoxGenereJoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxGenereJoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Acció", "Aventura", "Shooters", "Deports" }));
 
         jButtonCancelarCrearJoc.setBackground(new java.awt.Color(153, 0, 0));
         jButtonCancelarCrearJoc.setText("Cancel·lar");
@@ -147,6 +161,7 @@ public class DialogaCrearJoc extends javax.swing.JDialog {
 
         jButtonConfirmarCreajoc.setBackground(new java.awt.Color(51, 153, 0));
         jButtonConfirmarCreajoc.setText("Confirmar");
+        jButtonConfirmarCreajoc.addActionListener(this::jButtonConfirmarCreajocActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -196,8 +211,50 @@ public class DialogaCrearJoc extends javax.swing.JDialog {
 
     private void jButtonCancelarCrearJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarCrearJocActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        this.dispose(); 
     }//GEN-LAST:event_jButtonCancelarCrearJocActionPerformed
+
+    private void jButtonConfirmarCreajocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfirmarCreajocActionPerformed
+        // TODO add your handling code here:
+        String titol = jTextFieldNomJoc.getText().trim();
+        String genere = (String) jComboBoxGenereJoc.getSelectedItem();
+
+        boolean ps5 = checkboxPS5.getState();
+        boolean xbox = checkboxXbox.getState();
+        boolean pc = checkboxPC.getState();
+        boolean switch2 = checkboxSwitch2.getState();
+
+        int unitatsPS5 = ps5 ? (Integer) jSpinnerUnitatsPS5.getValue() : 0;
+        int unitatsXbox = xbox ? (Integer) jSpinnerUnitatsXbpx.getValue() : 0;
+        int unitatsPC = pc ? (Integer) jSpinnerUnitatsPC.getValue() : 0;
+        int unitatsSwitch2 = switch2 ? (Integer) jSpinnerUnitatsSwitch2.getValue() : 0;
+
+        if (titol.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Has d'introduir el títol del joc.", "Error",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!ps5 && !xbox && !pc && !switch2) {
+            JOptionPane.showMessageDialog(this, "Has de marcar una plataforma.", "Error",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if ((ps5 && unitatsPS5 == 0) || (xbox && unitatsXbox == 0)
+                || (pc && unitatsPC == 0) || (switch2 && unitatsSwitch2 == 0)) {
+            JOptionPane.showMessageDialog(this, "Les plataformes marcades han de tenir 1 unitat.", "Error",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (gLloguer.buscarJocPerTitol(titol) != null) {
+            JOptionPane.showMessageDialog(this, "Ja existeix un joc amb aquest títol.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Joc joc = new Joc(titol, genere, unitatsPS5, unitatsXbox, unitatsPC, unitatsSwitch2);
+        gLloguer.afegirJoc(joc);
+        JOptionPane.showMessageDialog(this, "Joc creat correctament!");
+        this.dispose();
+    }//GEN-LAST:event_jButtonConfirmarCreajocActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,7 +281,7 @@ public class DialogaCrearJoc extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DialogaCrearJoc dialog = new DialogaCrearJoc(new javax.swing.JFrame(), true);
+                DialogaCrearJoc dialog = new DialogaCrearJoc(new javax.swing.JFrame(), true, new GestorLloguer());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

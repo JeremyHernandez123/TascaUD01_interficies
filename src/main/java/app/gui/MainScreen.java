@@ -23,6 +23,8 @@ public class MainScreen extends javax.swing.JFrame {
         
     public MainScreen() {
         initComponents();
+        gLloguer = new GestorLloguer();
+
     }
         /**
      * This method is called from within the constructor to initialize the form.
@@ -163,7 +165,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jMenuItemCrearJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCrearJocActionPerformed
         // TODO add your handling code here:
-        DialogaCrearJoc finestraCrearJoc = new DialogaCrearJoc(this, rootPaneCheckingEnabled); 
+        DialogaCrearJoc finestraCrearJoc = new DialogaCrearJoc(this, true, gLloguer);
         finestraCrearJoc.setVisible(true);
     }//GEN-LAST:event_jMenuItemCrearJocActionPerformed
 

@@ -12,48 +12,57 @@ import java.util.Date;
  * @author Alumne
  */
 public class GestorLloguer {
-    private static ArrayList<User> llistaUser = new ArrayList<>();
-    private static ArrayList<Joc> llistaJoc = new ArrayList<>();
-    private static ArrayList<Lloguer> llistaLloguer = new ArrayList<>();
-    private static int comptadorNRegistre;
+    private ArrayList<User> llistaUser = new ArrayList<>();
+    private ArrayList<Joc> llistaJoc = new ArrayList<>();
+    private ArrayList<Lloguer> llistaLloguer = new ArrayList<>();
+    private int comptadorNRegistre = 1;
 
     public GestorLloguer() {
-        this.comptadorNRegistre = 1;
+        this.comptadorNRegistre = comptadorNRegistre;
     }
     
-    public static void afegirUsuari(User usuari){
+    public void afegirUsuari(User usuari){
         llistaUser.add(usuari); 
     }
     
-    public static void afegirJoc(Joc joc){
+    public void afegirJoc(Joc joc){
         llistaJoc.add(joc); 
     }
     
-    public static Lloguer crearLloguer(User usuari, Joc joc, Plataforma plataforma, Date dataInici) {
+    public Lloguer crearLloguer(User usuari, Joc joc, Plataforma plataforma, Date dataInici) {
         Lloguer lloguer = new Lloguer(comptadorNRegistre, usuari, joc, plataforma, dataInici);
         comptadorNRegistre++;
         llistaLloguer.add(lloguer);
         return lloguer;
     }
 
-    public static ArrayList<User> getUsuaris(){
+    public ArrayList<User> getUsuaris(){
         return llistaUser;
     }
     
-    public static ArrayList<Joc> getJocs(){
+    public ArrayList<Joc> getJocs(){
         return llistaJoc; 
     }
     
-    public static ArrayList<Lloguer> getLloguers(){
+    public ArrayList<Lloguer> getLloguers(){
         return llistaLloguer; 
     }
     
-    public static User buscarUsuariPerDni(String dni){
+    public User buscarUsuariPerDni(String dni){
         for (User u : llistaUser) {
         if (u.getDni().equals(dni)) {
             return u;
         }
     }
     return null;
+    }
+    
+    public Joc buscarJocPerTitol(String titol) {
+        for (Joc j : llistaJoc) {
+            if (j.getTitol().equalsIgnoreCase(titol)) {
+                return j;
+            }
+        }
+        return null;
     }
 }
