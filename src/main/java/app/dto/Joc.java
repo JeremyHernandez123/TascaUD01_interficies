@@ -72,6 +72,36 @@ public class Joc {
     public void setUnitatsSwitch2(int unitatsSwitch2) {
         this.unitatsSwitch2 = unitatsSwitch2;
     }
+    
+    public int getUnitats(Plataforma plataforma) {
+        switch (plataforma) {
+            case PS5:
+                return unitatsPS5;
+            case XBOX:
+                return unitatsXbox;
+            case PC:
+                return unitatsPC;
+            default:
+                return unitatsSwitch2;
+        }
+    }
+
+    public void setUnitats(Plataforma plataforma, int unitats) {
+        switch (plataforma) {
+            case PS5:
+                unitatsPS5 = unitats;
+                break;
+            case XBOX:
+                unitatsXbox = unitats;
+                break;
+            case PC:
+                unitatsPC = unitats;
+                break;
+            default:
+                unitatsSwitch2 = unitats;
+                break;
+        }
+    }
 
     @Override
     public String toString() {
