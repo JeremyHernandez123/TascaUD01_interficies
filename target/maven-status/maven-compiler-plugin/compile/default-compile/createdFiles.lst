@@ -1,3 +1,4 @@
+app\dto\Plataforma.class
 app\gui\DialogaCrearJoc.class
 app\dto\Joc.class
 app\gui\MainScreen.class
@@ -12,8 +13,8 @@ app\gui\DialogTornaLloguer$1.class
 app\gui\DialogTornaLloguer$2.class
 app\gui\DialogCrearUsuari$1$1.class
 app\gui\DialogCrearUsuari$1.class
-app\dto\GestorLLoguer.class
 app\gui\DialogRegistraLloguer$1$1.class
 app\gui\DialogRegistraLloguer.class
 app\gui\DialogTornaLloguer.class
 app\gui\DialogRegistraLloguer$1.class
+app\dto\GestorLloguer.class

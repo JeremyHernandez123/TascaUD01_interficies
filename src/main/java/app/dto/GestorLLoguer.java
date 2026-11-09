@@ -11,40 +11,40 @@ import java.util.Date;
  *
  * @author Alumne
  */
-public class GestorLLoguer {
-    private ArrayList<User> llistaUser = new ArrayList<>();
-    private ArrayList<Joc> llistaJoc = new ArrayList<>();
-    private ArrayList<Lloguer> llistaLloguer = new ArrayList<>();
-    int comptadorNRegistre;
+public class GestorLloguer {
+    private static ArrayList<User> llistaUser = new ArrayList<>();
+    private static ArrayList<Joc> llistaJoc = new ArrayList<>();
+    private static ArrayList<Lloguer> llistaLloguer = new ArrayList<>();
+    private static int comptadorNRegistre;
 
-    public GestorLLoguer() {
+    public GestorLloguer() {
         this.comptadorNRegistre = 1;
     }
     
-    public void afegirUsuari(User usuari){
+    public static void afegirUsuari(User usuari){
         llistaUser.add(usuari); 
     }
     
-    public void afegirJoc(Joc joc){
+    public static void afegirJoc(Joc joc){
         llistaJoc.add(joc); 
     }
     
-    public Lloguer crearLloguer(User usuari, Joc joc, Plataforma plataforma, Date dataInici) {
+    public static Lloguer crearLloguer(User usuari, Joc joc, Plataforma plataforma, Date dataInici) {
         Lloguer lloguer = new Lloguer(comptadorNRegistre, usuari, joc, plataforma, dataInici);
         comptadorNRegistre++;
         llistaLloguer.add(lloguer);
         return lloguer;
     }
 
-    public ArrayList<User> getUsuaris(){
+    public static ArrayList<User> getUsuaris(){
         return llistaUser;
     }
     
-    public ArrayList<Joc> getJocs(){
+    public static ArrayList<Joc> getJocs(){
         return llistaJoc; 
     }
     
-    public ArrayList<Lloguer> getLloguers(){
+    public static ArrayList<Lloguer> getLloguers(){
         return llistaLloguer; 
     }
 }

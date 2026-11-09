@@ -4,6 +4,7 @@
  */
 package app.gui;
 
+import app.dto.GestorLloguer;
 import app.dto.User;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,12 +17,14 @@ import java.util.Locale;
 public class DialogCrearUsuari extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DialogCrearUsuari.class.getName());
-
+    private GestorLloguer gLloguer; 
+    
     /**
      * Creates new form DialogAddUser
      */
-    public DialogCrearUsuari(java.awt.Frame parent, boolean modal) {
+    public DialogCrearUsuari(java.awt.Frame parent, boolean modal, GestorLloguer gLloguer) {
         super(parent, modal);
+        this.gLloguer = gLloguer; 
         initComponents();
         jTextFieldDataRegistre.setEditable(false);
         jTextFieldDataRegistre.setEnabled(false);
@@ -174,6 +177,7 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
            
            User usuari = new User(nom, LlinatgeComplet); 
             
+            GestorLloguer.afegirUsuari(usuari);  
             javax.swing.JOptionPane.showMessageDialog(this, "¡Usuario registrado con éxito!");
             jTextFieldNom.setText("");
             jTextFieldLlinatge1.setText("");
@@ -208,12 +212,11 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DialogCrearUsuari dialog = new DialogCrearUsuari(new javax.swing.JFrame(), true);
+                DialogCrearUsuari dialog = new DialogCrearUsuari(new javax.swing.JFrame(), true, new GestorLloguer());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

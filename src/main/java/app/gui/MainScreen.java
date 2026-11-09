@@ -4,6 +4,7 @@
  */
 package app.gui;
 
+import app.dto.GestorLloguer;
 import app.dto.User;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -15,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class MainScreen extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainScreen.class.getName());
-    
+    private GestorLloguer gLloguer; 
     /**
      * Creates new form MainScreen
      */
@@ -156,7 +157,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jMenuItemCrearUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCrearUsuariActionPerformed
         // TODO add your handling code here:
-        DialogCrearUsuari finestraCrearUsuari = new DialogCrearUsuari(this, rootPaneCheckingEnabled); 
+        DialogCrearUsuari finestraCrearUsuari = new DialogCrearUsuari(this, rootPaneCheckingEnabled, gLloguer); 
         finestraCrearUsuari.setVisible(true);
     }//GEN-LAST:event_jMenuItemCrearUsuariActionPerformed
 
