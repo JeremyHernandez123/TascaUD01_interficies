@@ -78,6 +78,7 @@ public class DialogRegistraLloguer extends javax.swing.JDialog {
         jLabel1.setText("Usuari: ");
 
         jComboBoxUsuari.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxUsuari.addActionListener(this::jComboBoxUsuariActionPerformed);
 
         jButtonSeleccionarUsuari.setText("Seleccionar...");
 
@@ -347,6 +348,10 @@ public class DialogRegistraLloguer extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarCrearJocActionPerformed
+
+    private void jComboBoxUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxUsuariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxUsuariActionPerformed
 
     /**
      * @param args the command line arguments

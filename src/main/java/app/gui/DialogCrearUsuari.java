@@ -173,7 +173,7 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
            String LlinatgeComplet = llinatge1 + llinatge2; 
            
            User usuari = new User(nom, LlinatgeComplet); 
-           
+            
             javax.swing.JOptionPane.showMessageDialog(this, "¡Usuario registrado con éxito!");
             jTextFieldNom.setText("");
             jTextFieldLlinatge1.setText("");
