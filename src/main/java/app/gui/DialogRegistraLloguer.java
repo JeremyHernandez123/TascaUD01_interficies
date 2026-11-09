@@ -345,7 +345,7 @@ public class DialogRegistraLloguer extends javax.swing.JDialog {
 
     private void jButtonCancelarCrearJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarCrearJocActionPerformed
         // TODO add your handling code here:
-        
+        this.dispose();
     }//GEN-LAST:event_jButtonCancelarCrearJocActionPerformed
 
     /**

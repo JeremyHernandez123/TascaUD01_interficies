@@ -89,6 +89,7 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuUsuari.add(jMenuItemCrearUsuari);
 
         jMenuItemBorrarUsuari.setText("Borrar...");
+        jMenuItemBorrarUsuari.addActionListener(this::jMenuItemBorrarUsuariActionPerformed);
         jMenuUsuari.add(jMenuItemBorrarUsuari);
 
         jMenuBar.add(jMenuUsuari);
@@ -160,6 +161,11 @@ public class MainScreen extends javax.swing.JFrame {
         DialogaCrearJoc finestraCrearJoc = new DialogaCrearJoc(this, rootPaneCheckingEnabled); 
         finestraCrearJoc.setVisible(true);
     }//GEN-LAST:event_jMenuItemCrearJocActionPerformed
+
+    private void jMenuItemBorrarUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarUsuariActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenuItemBorrarUsuariActionPerformed
 
     /**
      * @param args the command line arguments
