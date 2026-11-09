@@ -14,32 +14,49 @@ import java.util.Date;
  */
 public class User {
     private String nom; 
-    private String llinatge; 
+    private String llinatge1;
+    private String llinatge2; 
+    private String dni; 
+    private String telefon; 
+    private Date dataRegistre; 
 
-    public User(String nom, String llinatge) {
+    public User(String nom, String llinatge1, String llinatge2, String dni, String telefon, Date dataRegistre) {
         this.nom = nom;
-        this.llinatge = llinatge;
+        this.llinatge1 = llinatge1;
+        this.llinatge2 = llinatge2;
+        this.dni = dni;
+        this.telefon = telefon;
+        this.dataRegistre = dataRegistre;
     }
 
     public String getNom() {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public String getLlinatge1() {
+        return llinatge1;
     }
 
-    public String getLlinatge() {
-        return llinatge;
+    public String getLlinatge2() {
+        return llinatge2;
     }
 
-    public void setLlinatge(String llinatge) {
-        this.llinatge = llinatge;
+    public String getDni() {
+        return dni;
+    }
+
+    public String getTelefon() {
+        return telefon;
+    }
+
+    public Date getDataRegistre() {
+        return dataRegistre;
     }
 
     @Override
     public String toString() {
-        return nom;
+        return nom + " " + llinatge1 + " " + llinatge2 + "(" + dni + ")";
     }
+    
     
 }

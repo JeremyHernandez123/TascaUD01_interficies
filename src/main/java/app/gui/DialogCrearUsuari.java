@@ -172,10 +172,8 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
        if (nom.isEmpty() || llinatge1.isEmpty() || llinatge2.isEmpty() || dni.isEmpty() || telefon.isEmpty()){
            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE); 
        } else {
-           
-           String LlinatgeComplet = llinatge1 + " " + llinatge2; 
-           
-           User usuari = new User(nom, LlinatgeComplet); 
+                      
+           User usuari = new User(nom, llinatge1, llinatge2, dni, telefon, dataRegistre); 
             
             GestorLloguer.afegirUsuari(usuari);  
             javax.swing.JOptionPane.showMessageDialog(this, "¡Usuario registrado con éxito!");
