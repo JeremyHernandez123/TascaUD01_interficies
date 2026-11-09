@@ -143,6 +143,7 @@ public class DialogaCrearJoc extends javax.swing.JDialog {
 
         jButtonCancelarCrearJoc.setBackground(new java.awt.Color(153, 0, 0));
         jButtonCancelarCrearJoc.setText("Cancel·lar");
+        jButtonCancelarCrearJoc.addActionListener(this::jButtonCancelarCrearJocActionPerformed);
 
         jButtonConfirmarCreajoc.setBackground(new java.awt.Color(51, 153, 0));
         jButtonConfirmarCreajoc.setText("Confirmar");
@@ -192,6 +193,11 @@ public class DialogaCrearJoc extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonCancelarCrearJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarCrearJocActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonCancelarCrearJocActionPerformed
 
     /**
      * @param args the command line arguments

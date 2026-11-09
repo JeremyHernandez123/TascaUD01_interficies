@@ -65,6 +65,7 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
 
         jButtonCancelarAddUser.setBackground(new java.awt.Color(204, 0, 0));
         jButtonCancelarAddUser.setText("Cancel·lar");
+        jButtonCancelarAddUser.addActionListener(this::jButtonCancelarAddUserActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,6 +137,11 @@ public class DialogCrearUsuari extends javax.swing.JDialog {
     private void jTextFieldNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomActionPerformed
+
+    private void jButtonCancelarAddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarAddUserActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonCancelarAddUserActionPerformed
 
     /**
      * @param args the command line arguments
