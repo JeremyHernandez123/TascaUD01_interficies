@@ -4,6 +4,15 @@
  */
 package app.gui;
 
+import app.dto.GestorLloguer;
+import app.dto.Joc;
+import app.dto.Plataforma;
+import app.dto.User;
+import java.util.Date;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Alumne
@@ -11,13 +20,105 @@ package app.gui;
 public class DialogRegistraLloguer extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DialogRegistraLloguer.class.getName());
-
+    private GestorLloguer gLloguer;
+    private ButtonGroup grupPlataforma = new ButtonGroup();
+    
     /**
      * Creates new form JDialogRegistraLloguer
      */
-    public DialogRegistraLloguer(java.awt.Frame parent, boolean modal) {
+    public DialogRegistraLloguer(java.awt.Frame parent, boolean modal, GestorLloguer gLloguer) {
         super(parent, modal);
+        this.gLloguer = gLloguer;
         initComponents();
+        
+        grupPlataforma.add(jRadioButtonPS5);
+        grupPlataforma.add(jRadioButtonXbox);
+        grupPlataforma.add(jRadioButtonPC);
+        grupPlataforma.add(jRadioButtonSwitch2);
+        
+        jTextFieldNumRegistre.setText(String.valueOf(gLloguer.getComptadorNRegistre()));
+        jTextFieldGenere.setEditable(false);
+        jTextFieldUnitatsDisponiblesPS5.setEditable(false);
+        jTextFieldUnitatsDisponiblesXbox.setEditable(false);
+        jTextFieldUnitatsDisponiblesPC.setEditable(false);
+        jTextFieldUnitatsDisponiblesSwitch2.setEditable(false);
+        jTextFieldPS5Disponible.setEditable(false);
+        jTextFieldXboxDisponible.setEditable(false);
+        jTextFieldPCDisponible.setEditable(false);
+        jTextFieldSwitch2Disponible.setEditable(false);
+        
+        jSpinnerDataTornada.setEnabled(false);
+        jSpinnerDataInici.setEditor(new javax.swing.JSpinner.DateEditor(jSpinnerDataInici, "dd/MM/yyyy"));
+        
+        omplirDesplegables();
+        jComboBoxJocElegit.addActionListener(e -> mostrarInfoJoc());
+        mostrarInfoJoc();
+    }
+    
+    private void omplirDesplegables() {
+        DefaultComboBoxModel<String> modelUsuaris = new DefaultComboBoxModel<>();
+        for (User u : gLloguer.getUsuaris()) {
+            modelUsuaris.addElement(u.toString());
+        }
+        jComboBoxUsuari.setModel(modelUsuaris);
+
+        DefaultComboBoxModel<String> modelJocs = new DefaultComboBoxModel<>();
+        for (Joc j : gLloguer.getJocs()) {
+            modelJocs.addElement(j.toString());
+        }
+        jComboBoxJocElegit.setModel(modelJocs);
+    }
+
+    private void mostrarInfoJoc() {
+        int index = jComboBoxJocElegit.getSelectedIndex();
+        grupPlataforma.clearSelection();
+
+        if (index < 0) { 
+            jTextFieldGenere.setText("");
+            jTextFieldUnitatsDisponiblesPS5.setText("");
+            jTextFieldUnitatsDisponiblesXbox.setText("");
+            jTextFieldUnitatsDisponiblesPC.setText("");
+            jTextFieldUnitatsDisponiblesSwitch2.setText("");
+            jTextFieldPS5Disponible.setText("");
+            jTextFieldXboxDisponible.setText("");
+            jTextFieldPCDisponible.setText("");
+            jTextFieldSwitch2Disponible.setText("");
+            return;
+        }
+
+        Joc joc = gLloguer.getJocs().get(index);
+        jTextFieldGenere.setText(joc.getGenere());
+
+        jTextFieldUnitatsDisponiblesPS5.setText(String.valueOf(joc.getUnitatsPS5()));
+        jTextFieldUnitatsDisponiblesXbox.setText(String.valueOf(joc.getUnitatsXbox()));
+        jTextFieldUnitatsDisponiblesPC.setText(String.valueOf(joc.getUnitatsPC()));
+        jTextFieldUnitatsDisponiblesSwitch2.setText(String.valueOf(joc.getUnitatsSwitch2()));
+
+        jTextFieldPS5Disponible.setText(joc.getUnitatsPS5() > 0 ? "Disponible" : "No disponible");
+        jTextFieldXboxDisponible.setText(joc.getUnitatsXbox() > 0 ? "Disponible" : "No disponible");
+        jTextFieldPCDisponible.setText(joc.getUnitatsPC() > 0 ? "Disponible" : "No disponible");
+        jTextFieldSwitch2Disponible.setText(joc.getUnitatsSwitch2() > 0 ? "Disponible" : "No disponible");
+
+        jRadioButtonPS5.setEnabled(joc.getUnitatsPS5() > 0);
+        jRadioButtonXbox.setEnabled(joc.getUnitatsXbox() > 0);
+        jRadioButtonPC.setEnabled(joc.getUnitatsPC() > 0);
+        jRadioButtonSwitch2.setEnabled(joc.getUnitatsSwitch2() > 0);
+    }
+
+    private Plataforma getPlataformaSeleccionada() {
+        if (jRadioButtonPS5.isSelected()) {
+            return Plataforma.PS5;
+        }
+        if (jRadioButtonXbox.isSelected()) {
+            return Plataforma.XBOX;
+        }
+        if (jRadioButtonPC.isSelected()) {
+            return Plataforma.PC;
+        }
+        if (jRadioButtonSwitch2.isSelected()) {
+            return Plataforma.SWITCH2;
+        }
+        return null;
     }
 
     /**
@@ -378,7 +479,7 @@ public class DialogRegistraLloguer extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DialogRegistraLloguer dialog = new DialogRegistraLloguer(new javax.swing.JFrame(), true);
+                DialogRegistraLloguer dialog = new DialogRegistraLloguer(new javax.swing.JFrame(), true, new GestorLloguer());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

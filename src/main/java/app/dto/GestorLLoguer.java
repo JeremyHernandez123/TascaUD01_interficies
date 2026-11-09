@@ -48,6 +48,10 @@ public class GestorLloguer {
         return llistaLloguer; 
     }
     
+    public int getComptadorNRegistre() {
+        return comptadorNRegistre;
+    }
+    
     public User buscarUsuariPerDni(String dni){
         for (User u : llistaUser) {
         if (u.getDni().equals(dni)) {

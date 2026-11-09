@@ -142,7 +142,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void jMenuItemRegistrarLloguerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRegistrarLloguerActionPerformed
         // TODO add your handling code here:
-        DialogRegistraLloguer finestrRegistraLloguerLloguer = new DialogRegistraLloguer(this, rootPaneCheckingEnabled); 
+        DialogRegistraLloguer finestrRegistraLloguerLloguer = new DialogRegistraLloguer(this, rootPaneCheckingEnabled, gLloguer); 
         finestrRegistraLloguerLloguer.setVisible(true);
     }//GEN-LAST:event_jMenuItemRegistrarLloguerActionPerformed
 
